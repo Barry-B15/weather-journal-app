@@ -6,42 +6,48 @@
 
 //Personal API Key from OpenWeatherMap API
 // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
-const baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
+let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
 
-//units=metric for deg Celsius or imperial for deg Fahrenheits
-let countryCode = '94040,us&units=metric'; // zip hard coded, find a fix
+//let countryCode = '94040,us&units=metric'; // zip hard coded, fix later
+// replace above with a more dynamic one
+const zipCode = document.getElementById('zip');
+const units = 'metric';
 
-const apiKey = process.env.API_KEY; //add your api key here
+const apiKey = 'YOUR-API-KEY';
+//const apiKey = process.env.API_KEY; //add your api key here
 //This is giving error process not defined. so I can't hide my key?
 //WHY ARE WE PUTTING API KEY ON THE CLIENTSIDE? EVERYWHERE I READ SAYS NO
 
-let weatherURL = `${baseURL}zip=${countryCode}&appid=${apiKey}`; // may use url too
+const url = `${baseURL}zip=${zipCode}&units=${units}&appid=${apiKey}`; // may use url too
 
-//=========== came with project ==================
+// get the DOM elements
+const status = document.getElementById('feelings').value;
+const currentDate = document.getElementById('date');
+
+
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth() + '.' + d.getDate() + '.' + d.getFullYear();
-//=========== came with project End ==================
-
-
-// attach the DOM elements
-const zipCode = document.getElementById('zip').value;
-const status = document.getElementById('feelings').value;
+let newDate = d.getMonth() + 1 + '-' + d.getDate() + '-' + d.getFullYear(); //month index starts at 0, add +1 to even up
+currentDate.textContent = "Posted on: " + newDate;
 
 //add listener and a callback function to the button
 document.getElementById('generate').addEventListener('click', performAction);
 
 function performAction(e) {
-    getNowWeather(weatherURL);
+    getNowWeather(url);
 }
 
-const getNowWeather = async(weatherURL) => {
+const getNowWeather = async() => {
+    let zip, weather_url;
 
+    zip = zipCode.value;
     //build the url
-    const response = await fetch(weatherURL);
+    weather_url = `${baseURL}zip=${zip}&units=${units}&appid=${apiKey}`;
+
+    const response = await fetch(weather_url);
 
     try {
-        const data = await response.json('/all');
+        const data = await response.json();
         console.log(data);
 
     } catch (error) {
