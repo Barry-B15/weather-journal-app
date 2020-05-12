@@ -34,7 +34,21 @@ currentDate.textContent = "Posted on: " + newDate;
 document.getElementById('generate').addEventListener('click', performAction);
 
 function performAction(e) {
-    getNowWeather(url);
+    //getNowWeather(url);
+
+    const zipCode = document.getElementById('zip').value;
+    const feelings = document.getElementById('feelings').value;
+
+    //getWeatherData
+    getNowWeather(baseURL, zipCode, apiKey)
+        .then(function(weatherData) {
+            postData('addWeatherData', {
+                weatherInfo: weatherData.weather.main.temp,
+                date: newDate,
+                userFeeling: feelings
+            })
+
+        })
 }
 
 const getNowWeather = async() => {
@@ -80,13 +94,14 @@ const postData = async(url = '', data = {}) => {
     }
 }
 
-postData('/add', { movie: "Fridays", rank: 4.5 }); // test data
+
+//postData('/add', { movie: "Fridays", rank: 4.5 }); // test data
 
 //=========== 1. set up post data async fun End==================
 
 // corresponding func to send weather data to the server 
 // Test data in console.
-postData('/addWeather', {
+/* postData('/addWeather', {
     "coord": {
         "lon": -122.09,
         "lat": 37.39
@@ -97,4 +112,4 @@ postData('/addWeather', {
         "description": "light rain",
         "icon": "10d"
     }]
-}); // Next add the api-key
+}); */ // Next add the api-key
