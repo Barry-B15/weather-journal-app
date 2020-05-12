@@ -25,7 +25,7 @@ const port = process.env.PORT || 8000;
 
 // Spin up the server
 app.listen(port, () => {
-    console.log(`Serverup and running on localhost: ${port}`);
+    console.log(`Server up and running on localhost: ${port}`);
 });
 
 // Initialize the main project folder
@@ -53,12 +53,30 @@ app.post('/add', (request, response) => {
 
 // Initialize an empty data set to hold our data then create
 //route to post weather for user location // go set up a func to send weather on the client side
-const data = [];
+//const data = [];
+const weatherData = [];
+
+// initialize for all weather data
+app.get('/all', (req, res) => {
+    res.send(weatherData)
+    console.log(weatherData)
+})
 
 app.post('/addWeather', addWeather);
 
-function addWeather(request, response) {
+function addWeather(req, res) {
+    newEntry = {
+        temperature: req.body.weatherInfo,
+        date: req.body.date,
+        userFeeling: req.body.userFeeling
+    }
 
-    data.push(request.body);
-    console.log(data);
+    weatherData.push(newEntry)
+    res.send(weatherData)
+    console.log('POST')
+    console.log(weatherData)
+
+    // do I still need this?
+    //data.push(request.body);
+    //console.log(data);
 }
