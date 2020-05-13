@@ -1,7 +1,5 @@
 /* Global Variables */
 
-
-
 //=========== 2. set up the parts of the app ==================
 
 //Personal API Key from OpenWeatherMap API
@@ -13,7 +11,7 @@ let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
 const zipCode = document.getElementById('zip');
 const units = 'metric';
 
-const apiKey = 'YOUR-API-KEY';
+const apiKey = 'AKI_KEY_HERE';
 //const apiKey = process.env.API_KEY; //add your api key here
 //This is giving error process not defined. so I can't hide my key?
 //WHY ARE WE PUTTING API KEY ON THE CLIENTSIDE? EVERYWHERE I READ SAYS NO
@@ -42,8 +40,8 @@ function performAction(e) {
     //getWeatherData
     getNowWeather(baseURL, zipCode, apiKey)
         .then(function(weatherData) {
-            postData('addWeatherData', {
-                weatherInfo: weatherData.weather.main.temp,
+            postData('addWeather', { // as recommended by Mentor
+                weatherInfo: weatherData.main.temp, // as recommended by Mentor
                 date: newDate,
                 userFeeling: feelings
             })
@@ -63,10 +61,9 @@ const getNowWeather = async() => {
     try {
         const data = await response.json();
         console.log(data);
-
+        return data;
     } catch (error) {
-        console.log("error", error);
-
+        console.log(data);
     }
 
 }
