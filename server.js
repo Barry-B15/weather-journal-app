@@ -53,7 +53,7 @@ app.post('/add', (request, response) => {
 
 // Initialize an empty data set to hold our data then create
 //route to post weather for user location // go set up a func to send weather on the client side
-//const data = [];
+const data = []; // not sure if this is still needed
 const weatherData = [];
 
 // initialize for all weather data
@@ -77,6 +77,6 @@ function addWeather(req, res) {
     console.log(weatherData)
 
     // do I still need this?
-    //data.push(request.body);
-    //console.log(data);
+    data.push(req.body);
+    console.log(data);
 }
