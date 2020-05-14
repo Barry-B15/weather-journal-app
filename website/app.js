@@ -11,7 +11,7 @@ let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
 const zipCode = document.getElementById('zip');
 const units = 'metric';
 
-const apiKey = 'AKI_KEY_HERE';
+const apiKey = 'a6eede34b6bd7dbb28cb965bbbbfb03e';
 //const apiKey = process.env.API_KEY; //add your api key here
 //This is giving error process not defined. so I can't hide my key?
 //WHY ARE WE PUTTING API KEY ON THE CLIENTSIDE? EVERYWHERE I READ SAYS NO
@@ -26,7 +26,7 @@ const currentDate = document.getElementById('date');
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getMonth() + 1 + '-' + d.getDate() + '-' + d.getFullYear(); //month index starts at 0, add +1 to even up
-currentDate.textContent = "Posted on: " + newDate;
+//currentDate.textContent = "Posted on: " + newDate;
 
 //add listener and a callback function to the button
 document.getElementById('generate').addEventListener('click', performAction);
@@ -45,7 +45,7 @@ function performAction(e) {
                 date: newDate,
                 userFeeling: feelings
             })
-
+            updateUI();
         })
 }
 
@@ -91,8 +91,26 @@ const postData = async(url = '', data = {}) => {
     }
 }
 
+// Update The UI
+const updateUI = async() => {
 
-//postData('/add', { movie: "Fridays", rank: 4.5 }); // test data
+        const request = await fetch('/all');
+        console.log('UPDATE UI');
+
+        try {
+            const allData = await request.json();
+            console.log('allData: ' + allData);
+
+            // update the HTML elements
+            document.getElementById('date').innerHTML = "Posted on: " + newDate;
+            document.getElementById('temp').innerHTML = allData[0].weather;
+            document.getElementById('content').innerHTML = allData[0].userFeeling;
+        } catch (error) {
+
+            console.log("error", error);
+        }
+    }
+    //postData('/add', { movie: "Fridays", rank: 4.5 }); // test data
 
 //=========== 1. set up post data async fun End==================
 
