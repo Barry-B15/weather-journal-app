@@ -11,7 +11,7 @@ let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
 const zipCode = document.getElementById('zip');
 const units = 'metric';
 
-const apiKey = 'a6eede34b6bd7dbb28cb965bbbbfb03e';
+const apiKey = 'API_KEY_HERE';
 //const apiKey = process.env.API_KEY; //add your api key here
 //This is giving error process not defined. so I can't hide my key?
 //WHY ARE WE PUTTING API KEY ON THE CLIENTSIDE? EVERYWHERE I READ SAYS NO
@@ -34,19 +34,35 @@ document.getElementById('generate').addEventListener('click', performAction);
 function performAction(e) {
     //getNowWeather(url);
 
+    e.preventDefault(); //towards form validation
+
     const zipCode = document.getElementById('zip').value;
     const feelings = document.getElementById('feelings').value;
+
+    // Form validation
+    if (zipCode.length == 0) {
+        alert("Please enter zip code");
+        return
+    }
+    if (feelings.length == 0) {
+        alert("Please enter feelings");
+        return
+    }
 
     //getWeatherData
     getNowWeather(baseURL, zipCode, apiKey)
         .then(function(weatherData) {
             postData('addWeather', { // as recommended by Mentor
-                weatherInfo: weatherData.main.temp, // as recommended by Mentor
-                date: newDate,
-                userFeeling: feelings
-            })
-            updateUI();
+                    weatherInfo: weatherData.main.temp, // as recommended by Mentor
+                    date: newDate,
+                    userFeeling: feelings
+                })
+                //updateUI();
         })
+        /* .then(function() {
+            updateUI();
+        }) */
+        .then(updateUI());
 }
 
 const getNowWeather = async() => {
@@ -103,7 +119,7 @@ const updateUI = async() => {
 
             // update the HTML elements
             document.getElementById('date').innerHTML = "Posted on: " + newDate;
-            document.getElementById('temp').innerHTML = allData[0].weather;
+            document.getElementById('temp').innerHTML = allData[0].temperature; //weather
             document.getElementById('content').innerHTML = allData[0].userFeeling;
         } catch (error) {
 
