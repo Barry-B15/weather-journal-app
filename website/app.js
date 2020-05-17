@@ -3,18 +3,17 @@
 //=========== 2. set up the parts of the app ==================
 
 //Personal API Key from OpenWeatherMap API
-// api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={your api key}
+// create a base url
 let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
 
-//let countryCode = '94040,us&units=metric'; // zip hard coded, fix later
-// replace above with a more dynamic one
+
+// decalare a variable to handle dynamic zip code from user
 const zipCode = document.getElementById('zip');
 const units = 'metric';
 
-const apiKey = 'API_KEY_HERE';
+const apiKey = 'YOUR_API_KEY_HERE';
 //const apiKey = process.env.API_KEY; //add your api key here
-//This is giving error process not defined. so I can't hide my key?
-//WHY ARE WE PUTTING API KEY ON THE CLIENTSIDE? EVERYWHERE I READ SAYS NO
+
 
 const url = `${baseURL}zip=${zipCode}&units=${units}&appid=${apiKey}`; // may use url too
 
@@ -54,15 +53,13 @@ function performAction(e) {
         .then(function(weatherData) {
             postData('addWeather', { // as recommended by Mentor
                     weatherInfo: weatherData.main.temp, // as recommended by Mentor
+                    //temp: weatherData.main.temp,
                     date: newDate,
                     userFeeling: feelings
                 })
-                //updateUI();
-        })
-        /* .then(function() {
-            updateUI();
-        }) */
-        .then(updateUI());
+                .then(updateUI());
+            //updateUI();
+        });
 }
 
 const getNowWeather = async() => {
@@ -110,37 +107,19 @@ const postData = async(url = '', data = {}) => {
 // Update The UI
 const updateUI = async() => {
 
-        const request = await fetch('/all');
-        console.log('UPDATE UI');
+    const request = await fetch('/all');
+    console.log('UPDATE UI');
 
-        try {
-            const allData = await request.json();
-            console.log('allData: ' + allData);
+    try {
+        const allData = await request.json();
+        console.log('allData: ' + allData);
 
-            // update the HTML elements
-            document.getElementById('date').innerHTML = "Posted on: " + newDate;
-            document.getElementById('temp').innerHTML = allData[0].temperature; //weather
-            document.getElementById('content').innerHTML = allData[0].userFeeling;
-        } catch (error) {
+        // update the HTML elements
+        document.getElementById('date').innerHTML = "Posted on: " + newDate;
+        document.getElementById('temp').innerHTML = allData[0].temperature + " &#176;" + "C"; //weather
+        document.getElementById('content').innerHTML = allData[0].userFeeling;
+    } catch (error) {
 
-            console.log("error", error);
-        }
+        console.log("error", error);
     }
-    //postData('/add', { movie: "Fridays", rank: 4.5 }); // test data
-
-//=========== 1. set up post data async fun End==================
-
-// corresponding func to send weather data to the server 
-// Test data in console.
-/* postData('/addWeather', {
-    "coord": {
-        "lon": -122.09,
-        "lat": 37.39
-    },
-    "weather": [{
-        "id": 500,
-        "main": "Rain",
-        "description": "light rain",
-        "icon": "10d"
-    }]
-}); */ // Next add the api-key
+}
