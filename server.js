@@ -40,10 +40,12 @@ app.get('/', (request, response) => {
     response.send('Hi');
 });
 
-app.get('/all', (request, response) => {
+// multiple ('/all) was leading to the UI not updating
+// Worked whenthis was commented out
+/* app.get('/all', (request, response) => {
     response.send(projectData);
     console.log(projectData);
-});
+}); */
 
 //POST route:  for data from client movie: Fridays
 app.post('/add', (request, response) => {
@@ -53,7 +55,6 @@ app.post('/add', (request, response) => {
 
 // Initialize an empty data set to hold our data then create
 //route to post weather for user location // go set up a func to send weather on the client side
-const data = []; // not sure if this is still needed
 const weatherData = [];
 
 // initialize for all weather data
@@ -67,6 +68,7 @@ app.post('/addWeather', addWeather);
 function addWeather(req, res) {
     newEntry = {
         temperature: req.body.weatherInfo,
+        //temp: req.body.temp,
         date: req.body.date,
         userFeeling: req.body.userFeeling
     }
@@ -75,8 +77,9 @@ function addWeather(req, res) {
     res.send(weatherData)
     console.log('POST')
     console.log(weatherData)
-
-    // do I still need this?
-    data.push(req.body);
-    console.log(data);
 }
+
+// if page/route does not exist
+/* app.get("*", (req, res) => {
+    res.send("Page not found.")
+}); */
