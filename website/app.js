@@ -12,8 +12,6 @@ const zipCode = document.getElementById('zip');
 const units = 'metric';
 
 const apiKey = 'YOUR_API_KEY_HERE';
-//const apiKey = process.env.API_KEY; //add your api key here
-
 
 const url = `${baseURL}zip=${zipCode}&units=${units}&appid=${apiKey}`; // may use url too
 
@@ -37,6 +35,7 @@ function performAction(e) {
 
     const zipCode = document.getElementById('zip').value;
     const feelings = document.getElementById('feelings').value;
+    const message = "Check Your Zip Code and try Again!";
 
     // Form validation
     if (zipCode.length == 0) {
@@ -52,13 +51,21 @@ function performAction(e) {
     getNowWeather(baseURL, zipCode, apiKey)
         .then(function(weatherData) {
             postData('addWeather', { // as recommended by Mentor
-                    weatherInfo: weatherData.main.temp, // as recommended by Mentor
-                    //temp: weatherData.main.temp,
-                    date: newDate,
-                    userFeeling: feelings
-                })
-                .then(updateUI());
-            //updateUI();
+                temperature: weatherData.main.temp, // as recommended by Mentor
+                //temp: weatherData.main.temp,
+                date: newDate,
+                userFeeling: feelings,
+
+                weatherNow: weatherData.weather[0].description,
+                cityName: weatherData.name,
+                country: weatherData.sys.country
+            })
+
+            updateUI();
+        })
+        .catch((error) => {
+            //console.log(error, message);
+            console.log("Error:", message);
         });
 }
 
@@ -66,8 +73,12 @@ const getNowWeather = async() => {
     let zip, weather_url;
 
     zip = zipCode.value;
+
+    const errMessage = "City Not Found";
+
     //build the url
     weather_url = `${baseURL}zip=${zip}&units=${units}&appid=${apiKey}`;
+
 
     const response = await fetch(weather_url);
 
@@ -76,7 +87,8 @@ const getNowWeather = async() => {
         console.log(data);
         return data;
     } catch (error) {
-        console.log(data);
+
+        console.log(errMessage);
     }
 
 }
@@ -116,10 +128,14 @@ const updateUI = async() => {
 
         // update the HTML elements
         document.getElementById('date').innerHTML = "Posted on: " + newDate;
-        document.getElementById('temp').innerHTML = allData[0].temperature + " &#176;" + "C"; //weather
-        document.getElementById('content').innerHTML = allData[0].userFeeling;
-    } catch (error) {
+        document.getElementById('temp').innerHTML = "The temperature is: " + allData[0].temp + " &#176;" + "C"; //weather
+        document.getElementById('content').innerHTML = "And you feeling: " + allData[0].userFeeling;
 
+        //My Additions
+        document.getElementById('description').innerHTML = allData[0].description;
+        document.getElementById('city').innerHTML = allData[0].name;
+        document.getElementById('country').innerHTML = allData[0].country;
+    } catch (error) {
         console.log("error", error);
     }
 }

@@ -5,7 +5,7 @@ projectData = {};
 const express = require('express');
 
 // Hide Api key in dotenv
-require('dotenv').config();
+//require('dotenv').config();
 //console.log(process.env);
 
 // Start up an instance of app
@@ -36,9 +36,9 @@ app.use(express.static('website'));
 
 //GET : all route initialized with a callback function
 //GET all route using the arrow function
-app.get('/', (request, response) => {
+/* app.get('/', (request, response) => {
     response.send('Hi');
-});
+}); */
 
 // multiple ('/all) was leading to the UI not updating
 // Worked whenthis was commented out
@@ -67,10 +67,15 @@ app.post('/addWeather', addWeather);
 
 function addWeather(req, res) {
     newEntry = {
-        temperature: req.body.weatherInfo,
-        //temp: req.body.temp,
+        //get the weather details from the body
+        //positions kind of reversed from what we wrote on client side (teperature: weatherData.allData[0].temp)
+        temp: req.body.temperature,
         date: req.body.date,
-        userFeeling: req.body.userFeeling
+        userFeeling: req.body.userFeeling,
+        // update additional weather info
+        description: req.body.weatherNow,
+        name: req.body.cityName,
+        country: req.body.country
     }
 
     weatherData.push(newEntry)
@@ -80,6 +85,6 @@ function addWeather(req, res) {
 }
 
 // if page/route does not exist
-/* app.get("*", (req, res) => {
+app.get("*", (req, res) => {
     res.send("Page not found.")
-}); */
+});
