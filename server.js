@@ -4,10 +4,6 @@ projectData = {};
 // Require Express to run server and routes
 const express = require('express');
 
-// Hide Api key in dotenv
-//require('dotenv').config();
-//console.log(process.env);
-
 // Start up an instance of app
 const app = express();
 /* Middleware*/
@@ -32,20 +28,6 @@ app.listen(port, () => {
 app.use(express.static('website'));
 
 //Server Setup
-
-
-//GET : all route initialized with a callback function
-//GET all route using the arrow function
-/* app.get('/', (request, response) => {
-    response.send('Hi');
-}); */
-
-// multiple ('/all) was leading to the UI not updating
-// Worked whenthis was commented out
-/* app.get('/all', (request, response) => {
-    response.send(projectData);
-    console.log(projectData);
-}); */
 
 //POST route:  for data from client movie: Fridays
 app.post('/add', (request, response) => {
