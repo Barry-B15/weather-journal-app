@@ -24,15 +24,14 @@ And lastly, I used the `style.css` file provided to style and customize the  app
 ### As a private server
 To run this app as a private server, the user will need to make the following installations:
 * Download and install node.js from: https://nodejs.org/en/download/
-```
 * open the gitbash/ powershell in the root directory
-* $ npm init 
-* $ npm install express
-* $ npm install body-parser
-* $ install cors
+
+Install the server
+* $ npm install
+
 Start the server
 * $ node server.js (or simply: node server)
-```
+
 ### From an online host
 When this project is uploaded to an online host, any user can access and use it to get their location weather just by entering their zip code, and feelings at that time.
 
