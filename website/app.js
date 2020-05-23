@@ -11,7 +11,7 @@ let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
 const zipCode = document.getElementById('zip');
 const units = 'metric';
 
-const apiKey = 'YOUR_API_KEY_HERE';
+const apiKey = 'a6eede34b6bd7dbb28cb965bbbbfb03e';
 
 const url = `${baseURL}zip=${zipCode}&units=${units}&appid=${apiKey}`; // may use url too
 
@@ -47,18 +47,18 @@ function performAction(e) {
         return
     }
 
-    //getWeatherData
+    //getWeatherData the projectData
     getNowWeather(baseURL, zipCode, apiKey)
-        .then(function(weatherData) {
+        .then(function(projectData) {
             postData('addWeather', { // as recommended by Mentor
-                temperature: weatherData.main.temp, // as recommended by Mentor
-                //temp: weatherData.main.temp,
+                temperature: projectData.main.temp,
                 date: newDate,
                 userFeeling: feelings,
 
-                weatherNow: weatherData.weather[0].description,
-                cityName: weatherData.name,
-                country: weatherData.sys.country
+                // weather summary for city, country
+                weatherNow: projectData.weather[0].description,
+                cityName: projectData.name,
+                country: projectData.sys.country
             })
 
             updateUI();

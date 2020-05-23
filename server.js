@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+projectData = [];
 
 // Require Express to run server and routes
 const express = require('express');
@@ -35,14 +35,14 @@ app.post('/add', (request, response) => {
     console.log(data);
 })
 
-// Initialize an empty data set to hold our data then create
-//route to post weather for user location // go set up a func to send weather on the client side
-const weatherData = [];
+
+//route to post all projectData for user location // go set up a func to send weather on the client side
 
 // initialize for all weather data
 app.get('/all', (req, res) => {
-    res.send(weatherData)
-    console.log(weatherData)
+    res.send(projectData);
+    console.log(projectData);
+
 })
 
 app.post('/addWeather', addWeather);
@@ -50,7 +50,7 @@ app.post('/addWeather', addWeather);
 function addWeather(req, res) {
     newEntry = {
         //get the weather details from the body
-        //positions kind of reversed from what we wrote on client side (teperature: weatherData.allData[0].temp)
+        //positions kind of reversed from what we wrote on client side (teperature: 
         temp: req.body.temperature,
         date: req.body.date,
         userFeeling: req.body.userFeeling,
@@ -60,10 +60,10 @@ function addWeather(req, res) {
         country: req.body.country
     }
 
-    weatherData.push(newEntry)
-    res.send(weatherData)
+    projectData.push(newEntry)
+    res.send(projectData)
     console.log('POST')
-    console.log(weatherData)
+    console.log(projectData)
 }
 
 // if page/route does not exist
