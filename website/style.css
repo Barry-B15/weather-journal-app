@@ -6,46 +6,86 @@ body {
 #app {
     display: grid;
     grid-auto-rows: minmax(150px, auto);
-    /* grid-template-columns:  */
-    height: 100vh;
+    grid-template-columns: repeat(2 1fr);
+    height: 100%;
     background: #f23557;
     color: #f0d43a;
     justify-content: center;
-    grid-gap: 1em;
+    grid-gap: 0.5em;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
+    text-align: center;
+    min-width: 200px;
 }
 
-.holder {}
+.holder {
+    padding: 0;
+}
 
 .entry {
     background: rgba(59, 74, 107, .4);
+    width: 90vw;
+    margin-left: 2vw;
+    margin-bottom: 1vh;
 }
 
-#entryHolder {}
+#entryHolder {
+    margin: 0.5em auto;
+    padding: 0.3em 0.5em;
+    width: 90%;
+    background: #510d668e;
+    justify-content: center;
+}
 
-#date {}
+#date,
+#temp,
+#content {
+    color: thistle;
+    padding: 0.5em 1em;
+}
 
-#temp {}
+#description,
+#city,
+#country {
+    color: lightcyan;
+}
 
-#content {}
+.headline {
+    padding: 0.1em;
+}
 
-.headline {}
 
-.title {}
+/*My additions */
+
+#zip {
+    margin-left: 5vw;
+    width: 80vw;
+    padding-left: 1em;
+}
+
+#feelings {
+    width: 90vw;
+    height: 30vh;
+    margin-left: 2vw;
+}
+
+.feel {
+    display: grid;
+}
 
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
 
 label {
     display: block;
-    font-size: 27px;
+    font-size: 1.5em;
 }
 
 input {
     display: block;
     height: 60px;
-    width: 320px;
+    width: 90vw;
+    /*320px;*/
     background: #22b2da;
     color: #f0d43a;
     font-size: 20px;
@@ -54,14 +94,16 @@ input {
 }
 
 button {
-    width: 400px;
-    height: 100px;
+    width: 50vw;
+    height: 15vw;
     background: #3b4a6b;
     color: #f0d43a;
     font-size: 26px;
     font-family: 'Oswald', sans-serif;
     border: none;
     box-shadow: 2px 4px 5px #444;
+    margin: 0.3em auto;
+    /* margin-left: 20vw; */
 }
 
 h1 {
@@ -104,4 +146,52 @@ button:focus {
     /* Microsoft Edge */
     color: #f0d43a;
     font-family: 'Oswald', sans-serif;
+}
+
+@media screen and (min-width: 700px) {
+    #app {
+        text-align: left;
+    }
+    h1 {
+        font-size: 50px;
+        /* color: whitesmoke; */
+        padding: 0.1em;
+        width: fit-content;
+        /* box-shadow: 2px 4px 5px; */
+        border: 0.5px solid goldenrod;
+    }
+    .zip {
+        margin-left: 2vw;
+    }
+    #zip {
+        width: 40vw;
+        margin: 0;
+    }
+    #feelings {
+        width: 50vw;
+        height: 30vh;
+        margin: 0;
+        grid-column: 1;
+        grid-row: 2;
+    }
+    .holder.feel {
+        width: 90vw;
+        margin-left: 2vw;
+    }
+    button {
+        grid-column: 2;
+        grid-row: 2;
+        width: 30vw;
+        height: 15vh;
+        margin-left: 0;
+    }
+    .entry {
+        padding-left: 0.5em;
+        width: 85vw;
+    }
+    #entryHolder {
+        width: 95%;
+        margin: 1em auto;
+        padding: 0.5em;
+    }
 }
