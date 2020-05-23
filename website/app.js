@@ -129,7 +129,7 @@ const updateUI = async() => {
         // update the HTML elements
         document.getElementById('date').innerHTML = "Posted on: " + newDate;
         document.getElementById('temp').innerHTML = "The temperature is: " + allData[0].temp + " &#176;" + "C"; //weather
-        document.getElementById('content').innerHTML = "And you feeling: " + allData[0].userFeeling;
+        document.getElementById('content').innerHTML = `And you're feeling: ` + allData[0].userFeeling;
 
         //My Additions
         document.getElementById('description').innerHTML = allData[0].description;
