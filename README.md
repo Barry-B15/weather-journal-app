@@ -32,6 +32,9 @@ Install the server
 Start the server
 * $ node server.js (or simply: node server)
 
+API key
+* It is recommended that private users register free with openWeatherMap for an API key for use in this app
+
 ### From an online host
 When this project is uploaded to an online host, any user can access and use it to get their location weather just by entering their zip code, and feelings at that time.
 
