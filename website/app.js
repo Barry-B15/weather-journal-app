@@ -11,7 +11,7 @@ let baseURL = 'https://api.openweathermap.org/data/2.5/weather?';
 const zipCode = document.getElementById('zip');
 const units = 'metric';
 
-const apiKey = 'a6eede34b6bd7dbb28cb965bbbbfb03e';
+const apiKey = 'Your API KEY HERE';
 
 const url = `${baseURL}zip=${zipCode}&units=${units}&appid=${apiKey}`; // may use url too
 
@@ -126,15 +126,18 @@ const updateUI = async() => {
         const allData = await request.json();
         console.log('allData: ' + allData);
 
+        let index = allData.length - 1;
+        // get the last entry in the array and update the ui with it as below
+
         // update the HTML elements
         document.getElementById('date').innerHTML = "Posted on: " + newDate;
-        document.getElementById('temp').innerHTML = "The temperature is: " + allData[0].temp + " &#176;" + "C"; //weather
-        document.getElementById('content').innerHTML = `And you're feeling: ` + allData[0].userFeeling;
+        document.getElementById('temp').innerHTML = "The temperature is: " + allData[index].temp + " &#176;" + "C"; //weather
+        document.getElementById('content').innerHTML = `And you're feeling: ` + allData[index].userFeeling;
 
         //My Additions
-        document.getElementById('description').innerHTML = allData[0].description;
-        document.getElementById('city').innerHTML = allData[0].name;
-        document.getElementById('country').innerHTML = allData[0].country;
+        document.getElementById('description').innerHTML = allData[index].description;
+        document.getElementById('city').innerHTML = allData[index].name;
+        document.getElementById('country').innerHTML = allData[index].country;
     } catch (error) {
         console.log("error", error);
     }
