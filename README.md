@@ -3,7 +3,7 @@
 ## Introduction
 This is an asynchronous weather web app that uses a Web API from Open Weather Map to generate a user inputted location weather condition. It takes the user response (feelings), add that to the weather generated with the API then update the UI dynamically with generated information. 
 
-## Technolofies:
+## Technologies:
 This app was created using the following:
 * Node.js
 * JavaScript
